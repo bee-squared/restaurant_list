@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Grid from './components/Grid';
 import Filter from './components/Filter';
 import EmptyGrid from './components/EmptyGrid';
+import SearchBar from './components/SearchBar';
 
 import './App.css';
 import config from './data/config';
@@ -12,6 +13,94 @@ const App = () => {
   const [currentState, setCurrentState] = useState('ShowAll');
   const [currentGenre, setCurrentGenre] = useState('ShowAll');
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleStateAbbr = (e) => {
+    const stateAbbr = e.target.value;
+    setCurrentState(stateAbbr);
+    handleSearchFilters('states', stateAbbr);
+  };
+
+  const handleGenre = (e) => {
+    const genre = e.target.value;
+    setCurrentGenre(genre);
+    handleSearchFilters('genres', genre);
+  };
+
+  const handleSearchSubmit = useCallback(
+    (e) => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      if (searchInput.length > 0) {
+        let newFilteredRestaurantList = filteredRestaurants.filter(
+          (restaurant) =>
+            restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
+        );
+        setFilteredRestaurants(newFilteredRestaurantList);
+      }
+    },
+    [filteredRestaurants, searchInput]
+  );
+
+  const handleSearchFilters = useCallback(
+    (filter, value) => {
+      let newFilteredRestaurantList = restaurants;
+
+      if (filter === 'states' && value !== 'ShowAll') {
+        newFilteredRestaurantList = newFilteredRestaurantList.filter(
+          (restaurant) => {
+            return restaurant.state === value;
+          }
+        );
+      } else if (filter !== 'states' && currentState !== 'ShowAll') {
+        newFilteredRestaurantList = newFilteredRestaurantList.filter(
+          (restaurant) => {
+            return restaurant.state === currentState;
+          }
+        );
+      }
+
+      if (filter === 'genres' && value !== 'ShowAll') {
+        newFilteredRestaurantList = newFilteredRestaurantList.filter(
+          (restaurant) => {
+            return restaurant.genre.indexOf(value) >= 0;
+          }
+        );
+      } else if (filter !== 'genres' && currentGenre !== 'ShowAll') {
+        newFilteredRestaurantList = newFilteredRestaurantList.filter(
+          (restaurant) => {
+            return restaurant.genre.indexOf(currentGenre) >= 0;
+          }
+        );
+      }
+
+      if (value.length > 0) {
+        newFilteredRestaurantList = newFilteredRestaurantList.filter(
+          (restaurant) =>
+            restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
+        );
+      }
+
+      setFilteredRestaurants(newFilteredRestaurantList);
+    },
+    [currentGenre, currentState, restaurants, searchInput]
+  );
+
+  const handleSearchInput = useCallback(
+    (e) => {
+      setSearchInput(e.target.value);
+      if (e.target.value.length === 0) {
+        handleSearchFilters(null, '');
+      }
+    },
+    [setSearchInput, handleSearchFilters]
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -44,67 +133,34 @@ const App = () => {
           setFilteredRestaurants(sortedData);
         });
     }
+
     fetchData();
   }, [setRestaurants, setFilteredRestaurants, setGenres]);
-
-  const handleStateAbbr = (e) => {
-    const stateAbbr = e.target.value;
-    setCurrentState(stateAbbr);
-    resetFilters('states', stateAbbr);
-  };
-
-  const handleGenre = (e) => {
-    const genre = e.target.value;
-    setCurrentGenre(genre);
-    resetFilters('genres', genre);
-  };
-
-  const resetFilters = (filter, value) => {
-    let newFilteredRestaurantList = restaurants;
-
-    if (filter === 'states' && value !== 'ShowAll') {
-      newFilteredRestaurantList = newFilteredRestaurantList.filter((restaurant) => {
-        return restaurant.state === value;
-      });
-    } else if (filter !== 'states' && currentState !== 'ShowAll') {
-      newFilteredRestaurantList = newFilteredRestaurantList.filter((restaurant) => {
-        return restaurant.state === currentState;
-      });
-    }
-
-    if (filter === 'genres' && value !== 'ShowAll') {
-      newFilteredRestaurantList = newFilteredRestaurantList.filter(
-        (restaurant) => {
-          return restaurant.genre.indexOf(value) >= 0;
-        }
-      );
-    } else if (filter !== 'genres' && currentGenre !== 'ShowAll') {
-      newFilteredRestaurantList = newFilteredRestaurantList.filter(
-        (restaurant) => {
-          return restaurant.genre.indexOf(currentGenre) >= 0;
-        }
-      );
-    }
-
-    setFilteredRestaurants(newFilteredRestaurantList);
-  };
 
   return (
     <div className='App'>
       <div className='title'>Restaurants</div>
-      <div className='filter-container'>
-        <Filter
-          name='filter'
-          instruction='Show All Genres'
-          listValues={genres}
-          handleChange={handleGenre}
-        />
-        <Filter
-          name='states'
-          instruction='Show All States'
-          listValues={config.state}
-          handleChange={handleStateAbbr}
-        />
+      <div className='search-filter-container'>
+        <div className='search-bar-container'>
+          <SearchBar
+            handleChange={handleSearchInput}
+            handleSubmit={handleSearchSubmit}
+          />
+        </div>
+        <div className='filter-container'>
+          <Filter
+            name='filter'
+            instruction='Show All Genres'
+            listValues={genres}
+            handleChange={handleGenre}
+          />
+          <Filter
+            name='states'
+            instruction='Show All States'
+            listValues={config.state}
+            handleChange={handleStateAbbr}
+          />
+        </div>
       </div>
       {filteredRestaurants.length === 0 ? (
         <EmptyGrid />

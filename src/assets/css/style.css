@@ -49,9 +49,47 @@
   background: rgba(51, 102, 153, 0.2);
 }
 
-.filter-container {
+.search-filter-container {
   display: flex;
+  justify-content: space-between;
+}
+
+.search-bar-container {
+  display: inline-block;
+  width: 40%;
+}
+
+.search-bar {
+  display: inline-flex;
+  width: 100%;
+}
+
+.search-bar input {
+  font-size: 0.8rem;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding: 8px 12px;
+  background-image: url('../images/search-icon.png');
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: right 5px center;
+  width: 100%;
+}
+
+input:hover {
+  outline: none;
+  border: 1px solid black;
+}
+
+input:focus {
+  background-image: none;
+}
+
+.filter-container {
+  display: inline-flex;
   justify-content: flex-end;
+  width: 50%;
 }
 
 .filter {
@@ -68,6 +106,7 @@
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 5px;
+  border-color: gray;
   appearance: none;
   color: black;
   background-color: white;
