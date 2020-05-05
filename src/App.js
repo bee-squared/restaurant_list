@@ -182,7 +182,7 @@ const App = () => {
           />
         </div>
       </div>
-      {filteredRestaurants.length === 0 && currentPage >= 0 ? (
+      {isInitialized && filteredRestaurants.length === 0 && currentPage >= 0 ? (
         <EmptyGrid />
       ) : (
         <Grid
