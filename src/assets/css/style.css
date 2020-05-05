@@ -8,7 +8,6 @@
   -webkit-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  /* text-shadow: 0px 3px rgba(51, 102, 153, 0.2); */
 }
 
 .grid-container {
@@ -84,7 +83,6 @@
   width: 100%;
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  text-shadow: 0px 3px rgba(51, 102, 153, 0.2);
 }
 
 input:hover {
@@ -109,7 +107,6 @@ input:focus {
   font-size: 0.8rem;
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  text-shadow: 0px 3px rgba(51, 102, 153, 0.2);
 }
 
 .filter select {
@@ -184,7 +181,7 @@ img {
   border-radius: 5px;
 }
 
-.pagination-arrow:disabled:hover {
+.pagination-arrow:disabled {
   background-color: transparent;
   cursor: default;
   color: grey;
@@ -195,7 +192,6 @@ img {
   cursor: pointer;
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  text-shadow: 0px 3px rgba(51, 102, 153, 0.2);
 }
 
 .pagination-value-container {
@@ -204,6 +200,7 @@ img {
   width: 20px;
   outline: none;
   border-radius: 5px;
+  margin: 0px 5px 0px;
 }
 
 .pagination-value-container:hover {
@@ -211,7 +208,6 @@ img {
   cursor: pointer;
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  text-shadow: 0px 3px rgba(51, 102, 153, 0.2);
 }
 
 .pagination-value-container-active {
@@ -225,7 +221,6 @@ img {
   color: white;
   -moz-box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  text-shadow: 0px 3px rgba(51, 102, 153, 0.2);
 }
 
 #pagination-arrow-right {
@@ -255,6 +250,8 @@ img {
   background-position: center center;
   opacity: 30%;
   margin-right: 20px;
+  -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
 }
 
 #pagination-arrow-right-disabled:disabled {
@@ -268,4 +265,6 @@ img {
   background-position: center center;
   opacity: 30%;
   margin-left: 20px;
+  -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
 }
