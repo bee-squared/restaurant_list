@@ -1,10 +1,10 @@
 import React from 'react';
 
 const PaginationItem = (props) => {
-  const { goToPage } = props;
+  const { goToPage, id, className } = props;
   return (
-    <div id='pagination-value' onClick={() => goToPage(props.children - 1)}>
-      <div>{props.children}</div>
+    <div className={className} onClick={() => goToPage(props.children - 1)}>
+      <div id={id}>{props.children}</div>
     </div>
   );
 };

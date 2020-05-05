@@ -52,10 +52,10 @@ const App = () => {
       if (searchInput.length > 0) {
         let newFilteredRestaurantList = filteredRestaurants.filter(
           (restaurant) =>
-          restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
-          restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
-          restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
-          );
+            restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
+            restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
+        );
         setCurrentPage(0);
         setFilteredRestaurants(newFilteredRestaurantList);
       }
@@ -105,7 +105,14 @@ const App = () => {
       setCurrentPage(0);
       setFilteredRestaurants(newFilteredRestaurantList);
     },
-    [currentGenre, currentState, restaurants, searchInput, setCurrentPage, setFilteredRestaurants]
+    [
+      currentGenre,
+      currentState,
+      restaurants,
+      searchInput,
+      setCurrentPage,
+      setFilteredRestaurants,
+    ]
   );
 
   const handleSearchInput = useCallback(
@@ -151,11 +158,7 @@ const App = () => {
         });
     }
     fetchData();
-  }, [
-    setRestaurants,
-    setIsInitialized,
-    isInitialized,
-  ]);
+  }, [setRestaurants, setIsInitialized, isInitialized]);
 
   return (
     <div className='App'>

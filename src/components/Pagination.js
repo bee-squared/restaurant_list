@@ -28,7 +28,18 @@ const Pagination = ({
         />
       )}
       {pages.map((page, i) => (
-        <PaginationItem key={`page-${i+1}`} goToPage={goToPage}>{i + 1}</PaginationItem>
+        <PaginationItem
+          key={`page-${i + 1}`}
+          id={`page-${i + 1}`}
+          className={
+            currentPage === i
+              ? 'pagination-value-container-active'
+              : 'pagination-value-container'
+          }
+          goToPage={goToPage}
+        >
+          {i + 1}
+        </PaginationItem>
       ))}
       {currentPage < numPages - 1 ? (
         <button
