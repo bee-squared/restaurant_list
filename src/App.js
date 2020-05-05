@@ -3,17 +3,34 @@ import Grid from './components/Grid';
 import Filter from './components/Filter';
 import EmptyGrid from './components/EmptyGrid';
 import SearchBar from './components/SearchBar';
+import Pagination from './components/Pagination';
 
 import './App.css';
 import config from './data/config';
 
 const App = () => {
+  const [isInitialized, setIsInitialized] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [genres, setGenres] = useState([]);
   const [currentState, setCurrentState] = useState('ShowAll');
   const [currentGenre, setCurrentGenre] = useState('ShowAll');
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const numRestaurantsPerPage = 10;
+
+  const addPage = useCallback(() => {
+    setCurrentPage(currentPage + 1);
+  }, [currentPage, setCurrentPage]);
+
+  const subtractPage = useCallback(() => {
+    setCurrentPage(currentPage - 1);
+  }, [currentPage, setCurrentPage]);
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
 
   const handleStateAbbr = (e) => {
     const stateAbbr = e.target.value;
@@ -32,24 +49,23 @@ const App = () => {
       if (e) {
         e.preventDefault();
       }
-
       if (searchInput.length > 0) {
         let newFilteredRestaurantList = filteredRestaurants.filter(
           (restaurant) =>
-            restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
-            restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
-            restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
-        );
+          restaurant.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+          restaurant.city.toUpperCase().includes(searchInput.toUpperCase()) ||
+          restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
+          );
+        setCurrentPage(0);
         setFilteredRestaurants(newFilteredRestaurantList);
       }
     },
-    [filteredRestaurants, searchInput]
+    [filteredRestaurants, searchInput, setFilteredRestaurants]
   );
 
   const handleSearchFilters = useCallback(
     (filter, value) => {
       let newFilteredRestaurantList = restaurants;
-
       if (filter === 'states' && value !== 'ShowAll') {
         newFilteredRestaurantList = newFilteredRestaurantList.filter(
           (restaurant) => {
@@ -86,10 +102,10 @@ const App = () => {
             restaurant.genre.toUpperCase().includes(searchInput.toUpperCase())
         );
       }
-
+      setCurrentPage(0);
       setFilteredRestaurants(newFilteredRestaurantList);
     },
-    [currentGenre, currentState, restaurants, searchInput]
+    [currentGenre, currentState, restaurants, searchInput, setCurrentPage, setFilteredRestaurants]
   );
 
   const handleSearchInput = useCallback(
@@ -131,11 +147,15 @@ const App = () => {
         .then((sortedData) => {
           setRestaurants(sortedData);
           setFilteredRestaurants(sortedData);
+          setIsInitialized(true);
         });
     }
-
     fetchData();
-  }, [setRestaurants, setFilteredRestaurants, setGenres]);
+  }, [
+    setRestaurants,
+    setIsInitialized,
+    isInitialized,
+  ]);
 
   return (
     <div className='App'>
@@ -162,11 +182,26 @@ const App = () => {
           />
         </div>
       </div>
-      {filteredRestaurants.length === 0 ? (
+      {filteredRestaurants.length === 0 && currentPage >= 0 ? (
         <EmptyGrid />
       ) : (
-        <Grid header={config.header} data={filteredRestaurants} />
+        <Grid
+          header={config.header}
+          data={filteredRestaurants}
+          currentPage={currentPage}
+          itemsPerPage={numRestaurantsPerPage}
+        />
       )}
+      {filteredRestaurants.length > numRestaurantsPerPage ? (
+        <Pagination
+          numItems={filteredRestaurants.length}
+          numItemsPerPage={numRestaurantsPerPage}
+          currentPage={currentPage}
+          subtractPage={subtractPage}
+          addPage={addPage}
+          goToPage={goToPage}
+        />
+      ) : null}
     </div>
   );
 };

@@ -5,7 +5,7 @@
 }
 
 .grid-container {
-  margin-bottom: 75px;
+  margin-bottom: 25px;
 }
 
 .grid-header {
@@ -112,7 +112,7 @@ input:focus {
   background-color: white;
   background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');
   background-size: 0.6em;
-  background-position: calc(100% - 1.0em) center;
+  background-position: calc(100% - 1em) center;
   background-repeat: no-repeat;
 }
 
@@ -142,4 +142,85 @@ input:focus {
 img {
   width: 100%;
   border-radius: 20px;
+}
+
+.pagination-container {
+  display: inline-flex;
+  justify-self: flex-end;
+  max-width: 600px;
+  overflow-x: hidden;
+}
+
+.pagination-arrow {
+  display: inline-block;
+  padding: 10px;
+  width: 40px;
+  border: none;
+  background-color: none;
+  color: black;
+  outline: none;
+  border-radius: 5px;
+}
+
+.pagination-arrow:disabled:hover {
+  background-color: transparent;
+  cursor: default;
+  color: grey;
+}
+
+.pagination-arrow:hover {
+  background-color: rgba(51, 102, 153, 0.2);
+  cursor: pointer;
+}
+
+#pagination-value {
+  display: inline-block;
+  padding: 10px;
+  width: 20px;
+  outline: none;
+  border-radius: 5px;
+}
+
+#pagination-value:hover {
+  background-color: rgba(51, 102, 153, 0.2);
+  cursor: pointer;
+}
+
+#pagination-arrow-right {
+  background-image: url('../images/arrow-right.png');
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: center center;
+}
+
+#pagination-arrow-left {
+  background-image: url('../images/arrow-left.png');
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: center center;
+}
+
+
+#pagination-arrow-left-disabled:disabled {
+  background-color: transparent;
+  cursor: default;
+  color: grey;
+  border-color: grey;
+  background-image: url('../images/arrow-left.png');
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: center center;
+  opacity: 30%;
+}
+
+#pagination-arrow-right-disabled:disabled {
+  background-color: transparent;
+  cursor: default;
+  color: grey;
+  border-color: grey;
+  background-image: url('../images/arrow-right.png');
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: center center;
+  opacity: 30%;
 }

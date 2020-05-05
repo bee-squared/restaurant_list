@@ -30,9 +30,9 @@ const reduceGridDetail = (restaurant) => {
   return rowDetail;
 };
 
-const Grid = ({ header, data }) => {
+const Grid = ({ header, data, currentPage, itemsPerPage }) => {
   let reducedData = [data.map((restaurant) => reduceGridDetail(restaurant))];
-
+  let paginatedData = reducedData[0].slice((currentPage * itemsPerPage), (currentPage * itemsPerPage) + itemsPerPage)
   return (
     <div className='grid-container'>
       <div className='grid-header'>
@@ -40,9 +40,7 @@ const Grid = ({ header, data }) => {
           <GridHeader key={headerColumn}>{headerColumn}</GridHeader>
         ))}
       </div>
-        {reducedData.map((restaurants, idx1) => (
-          restaurants.map((restaurant, idx2) => <GridRow key={restaurant.id + idx1.toString() +idx2.toString()} restaurant={restaurant} />)
-        ))}
+        {paginatedData.map((restaurant, idx) => <GridRow key={restaurant.id + idx.toString()} restaurant={restaurant} />)}
     </div>
   );
 };
