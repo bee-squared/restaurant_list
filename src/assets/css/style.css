@@ -132,10 +132,6 @@ input:focus {
   color: gray;
 }
 
-.results-container-empty-state {
-  display: none;
-}
-
 .empty-grid-container {
   margin-top: 50px;
   text-align: center;

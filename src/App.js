@@ -185,15 +185,7 @@ const App = () => {
           />
         </div>
       </div>
-      <div
-        className={
-          filteredRestaurants.length > 0
-            ? 'results-container'
-            : 'results-container-empty-state'
-        }
-      >
-        Total: {filteredRestaurants.length}
-      </div>
+      <div className='results-container'>{filteredRestaurants.length > 0 ? `Total: ${filteredRestaurants.length}` : null}</div>
       {isInitialized && filteredRestaurants.length === 0 && currentPage >= 0 ? (
         <EmptyGrid />
       ) : (
