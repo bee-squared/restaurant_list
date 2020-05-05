@@ -6,7 +6,7 @@ const EmptyGrid = () => {
     <div className='empty-grid-container'>
       <p>Bummer!</p>
       <p>
-        Based on your filter selection, there are no results. Try selecting a different filter option.
+        Based on your search or filter selection(s), there are no results. Try selecting a different filter option.
       </p>
       <div className='image-container'>
         <img src={image} alt='Empty Restaurant'/>
