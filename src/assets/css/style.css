@@ -124,6 +124,18 @@ input:focus {
   background-color: rgba(51, 102, 153, 0.2);
 }
 
+.results-container {
+  height: 20px;
+  text-align: left;
+  padding: 3px;
+  font-size: 0.7rem;
+  color: gray;
+}
+
+.results-container-empty-state {
+  display: none;
+}
+
 .empty-grid-container {
   margin-top: 50px;
   text-align: center;
