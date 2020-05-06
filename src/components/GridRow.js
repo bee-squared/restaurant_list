@@ -1,6 +1,8 @@
 import React from 'react';
 import GridRowDetail from './GridRowDetail';
 
+import '../assets/css/style.css';
+
 const GridRow = ({ restaurant }) => {
 
   return (

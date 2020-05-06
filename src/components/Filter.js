@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../assets/css/style.css';
+
 const Filter = ({ name, instruction, listValues, handleChange }) => {
   return (
     <div className='filter'>

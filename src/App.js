@@ -4,8 +4,10 @@ import Filter from './components/Filter';
 import EmptyGrid from './components/EmptyGrid';
 import SearchBar from './components/SearchBar';
 import Pagination from './components/Pagination';
+import Utility from './components/Utility';
 
 import './App.css';
+import './assets/css/style.css';
 import config from './data/config';
 
 const App = () => {
@@ -160,6 +162,17 @@ const App = () => {
     fetchData();
   }, [setRestaurants, setIsInitialized, isInitialized]);
 
+  const resetFilters = () => {
+    document.getElementById('search-input').value = '';
+    document.getElementById('genres').value = 'ShowAll';
+    document.getElementById('states').value = 'ShowAll';
+
+    setSearchInput('');
+    setCurrentState('ShowAll');
+    setCurrentGenre('ShowAll');
+    setFilteredRestaurants(restaurants);
+  }
+
   return (
     <div className='App'>
       <div className='title'>Restaurants</div>
@@ -172,7 +185,7 @@ const App = () => {
         </div>
         <div className='filter-container'>
           <Filter
-            name='filter'
+            name='genres'
             instruction='Show All Genres'
             listValues={genres}
             handleChange={handleGenre}
@@ -185,7 +198,7 @@ const App = () => {
           />
         </div>
       </div>
-      <div className='results-container'>{filteredRestaurants.length > 0 ? `Total: ${filteredRestaurants.length}` : null}</div>
+      <Utility numItems={filteredRestaurants.length} searchInput={searchInput} currentState={currentState} currentGenre={currentGenre} handleFilterReset={resetFilters}/>
       {isInitialized && filteredRestaurants.length === 0 && currentPage >= 0 ? (
         <EmptyGrid />
       ) : (

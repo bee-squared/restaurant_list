@@ -1,6 +1,8 @@
 import React from 'react';
 import PaginationItem from './PaginationItem';
 
+import '../assets/css/style.css';
+
 const Pagination = ({
   numItems,
   numItemsPerPage,
@@ -10,7 +12,7 @@ const Pagination = ({
   goToPage,
 }) => {
   const numPages = Math.ceil(numItems / numItemsPerPage);
-  let pages = [...Array(numPages).keys()];
+  let pages = [...Array(numPages).keys()]
 
   return (
     <div className='pagination-container'>

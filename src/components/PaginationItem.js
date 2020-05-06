@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../assets/css/style.css';
+
 const PaginationItem = (props) => {
   const { goToPage, id, className } = props;
   return (

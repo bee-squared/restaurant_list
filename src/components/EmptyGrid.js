@@ -1,6 +1,8 @@
 import React from 'react';
 import image from '../assets/images/empty-grid.png';
 
+import '../assets/css/style.css';
+
 const EmptyGrid = () => {
   return (
     <div className='empty-grid-container'>

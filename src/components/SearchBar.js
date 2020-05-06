@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../assets/css/style.css';
+
 const SearchBar = (props) => {
   const { handleChange, handleSubmit } = props;
   return (
