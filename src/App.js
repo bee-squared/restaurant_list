@@ -8,6 +8,7 @@ import Utility from './components/Utility';
 
 import './App.css';
 import './assets/css/style.css';
+import './assets/css/responsive.css';
 import config from './data/config';
 
 const App = () => {
